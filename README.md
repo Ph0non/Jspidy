@@ -3,7 +3,7 @@ Jspidy
 
 Small script to process data from [gw2spidy](www.gw2spidy.com) for trading post flipping in the MMO [Guild Wars 2](https://www.guildwars2.com/).
 
-# How to
+## How to
 
 Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) (Binaries and Dependencies for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
 
@@ -21,8 +21,8 @@ Pkg.add("DataFrames")
 `Jspidy.get()` create a `raw_data.csv` and update it, if the modification hour of the file is at last more than a hour ago. `Jspidy.process` returns a DataFrame with a specified header and additional useful columns like the netprice, margin and percentual margin of items. Further it accept additional arguments for a more detailed output, see below.
 
 ### Optional arguments for `Jspidy.process`
-* `header = ["string1"; "string2"; "string3"; and so on]` (Default `["name"]`) — Columns and order of output spreadsheet. For all possible header options see .
-* `sby = "string"` (Default `"margin"`) — Sort spreadsheet respective to this column. For all possible options see .
+* `header = ["string1"; "string2"; "string3"; and so on]` (Default `["name"]`) — Columns and order of output spreadsheet. For all possible header options see [possible header options](#Possible header / sby options).
+* `sby = "string"` (Default `"margin"`) — Sort spreadsheet respective to this column. For all possible options see [possible sby options](#Possible header / sby options).
 * `minsale = int` (Default `10000`) — Minimum volume of sale offers.
 * `minoffer = int` (Default `10000`) — Minimum volume of buy offers.
 * `minmargin = int` (Default `10`) — Minimum margin.
