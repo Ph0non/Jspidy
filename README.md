@@ -7,7 +7,7 @@ Small script to process data from [gw2spidy](www.gw2spidy.com) for trading post 
 
 Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) (Binaries and Dependencies for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
 
-### First time running julia
+### First time running Julia
 ```
 Pkg.init()
 Pkg.add("DataFrames")
@@ -30,7 +30,7 @@ Pkg.add("DataFrames")
 
 ### Example
 ```
-julia> Jspidy.process(x, header=["data_id"; "name"], sby="name", rev=false, minmargin=30)
+julia> Jspidy.process(Jspidy.get(), header=["data_id"; "name"], sby="name", rev=false, minmargin=30)
 12x5 DataFrame:
          data_id                                     name netprice margin margin(%)
 [1,]       12451 "Bowl of Meat and Winter Vegetable Stew"   164.05  36.05     21.98
@@ -47,3 +47,18 @@ julia> Jspidy.process(x, header=["data_id"; "name"], sby="name", rev=false, minm
 [12,]      38463                     "Wooden Dagger Skin"     78.2   32.2     41.18
 ```
 
+### Possible header / sby options
+* `data_id`  
+* `name`  
+* `rarity`  
+* `restriction_level`  
+* `img`  
+* `type_id`  
+* `sub_type_id`  
+* `price_last_changed`  
+* `max_offer_unit_price`  
+* `min_sale_unit_price`  
+* `offer_availability`  
+* `sale_availability`  
+* `sale_price_change_last_hour`  
+* `offer_price_change_last_hour`
