@@ -5,7 +5,7 @@ Small script to process data from [gw2spidy](www.gw2spidy.com) for trading post 
 
 ## How to
 
-Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) (_binaries_ and _dependencies_ for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
+Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) ( _binaries_ and _dependencies_ for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
 
 ### First time running Julia
 ```
