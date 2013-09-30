@@ -5,7 +5,7 @@ Small script to process data from [gw2spidy](www.gw2spidy.com) for trading post 
 
 ## How to
 
-Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) (Binaries and Dependencies for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
+Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](https://github.com/JuliaLang/julia) . Further you need [wget](http://gnuwin32.sourceforge.net/packages/wget.htm) ( _binaries_ and _dependencies_ for Windows) or `sudo apt-get install wget` for a lot of Linux distributions. I try a Julia-only solution with HTTPClient but it was terrible slow.
 
 ### First time running Julia
 ```
@@ -18,7 +18,7 @@ Pkg.add("DataFrames")
 * Process data: `y = Jspidy.process(x)`
 * Write data as csv with timestamp: `Jspidy.write(y)`
 
-`Jspidy.get()` create a `raw_data.csv` and update it, if the modification hour of the file is at last more than a hour ago. `Jspidy.process` returns a DataFrame with a specified header and additional useful columns like the netprice, margin and percentual margin of items. Further it accept additional arguments for a more detailed output, see below.
+`Jspidy.get()` creates a `raw_data.csv` and update it, if the modification hour of the file is at last more than an hour ago. `Jspidy.process` returns a DataFrame with a specified header and additional useful columns like the netprice, margin and percentual margin of items. Further it accepts additional arguments for a more detailed output, see below.
 
 ### Optional arguments for `Jspidy.process`
 * `header = ["string1"; "string2"; "string3"; and so on]` (Default `["name"]`) — Columns and order of output spreadsheet. For all possible header options see [possible header options](#possible-header--sby-options).
