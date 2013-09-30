@@ -19,7 +19,7 @@ end
 # process everything
 function process(df::DataFrame; 
 	header=["name"]::Array{ASCIIString,1},
-	sby="margin"::String,
+	sby="margin"::ASCIIString,
 	minsale=10000::Int,
 	minoffer=10000::Int,
 	minmargin=10::Int,
