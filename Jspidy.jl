@@ -25,16 +25,16 @@ function process{T<:DataFrame}(df::T;
 	minmargin=10::Int,
 	rev=true::Bool)
 
-	@assert prod({in(header[i], colnames(df)) for i=1:length(header)});
-	@assert in(sby, [colnames(df); "netprice"; "margin"; "margin(%)"]);
+#	@assert prod({in(header[i], colnames(df)) for i=1:length(header)});
+	@assert in(sby, [colnames(df); "netprice"; "margin"; "margin_percent"]);
 
 	sub_df = df[convert(BitArray, {df[i, "sale_availability"] .> minsale && df[i, "offer_availability"] .> minoffer for i=1:size(df,1)}), colnames(df)];
 
 	c1 = DataFrame("netprice" = round(sub_df[:,"min_sale_unit_price"]*0.85, 2));
 	c2 = DataFrame("margin" = round((c1["netprice"] - sub_df[:, "max_offer_unit_price"]),2));
-	c3 = DataFrame("margin(%)" = round(c2["margin"] ./ c1["netprice"]*100 ,2));
+	c3 = DataFrame("margin_percent" = round(c2["margin"] ./ c1["netprice"]*100 ,2));
 
-	return sortby!([sub_df c1 c2 c3][c2["margin"] .>= minmargin, :], sby, rev ? Base.Order.Reverse : Base.Order.Forward)[[header; "netprice"; "margin"; "margin(%)"]];
+	return sortby!([sub_df c1 c2 c3][c2["margin"] .>= minmargin, :], sby, rev ? Base.Order.Reverse : Base.Order.Forward)[[header; "netprice"; "margin"; "margin_percent"]];
 end
 
 #write csv to disk
