@@ -1,22 +1,25 @@
 using Jspidy
 using SQLite
 using DataFrames
+using Datetime
 
 #db_name = "history.sqlite"
 db_name = "./dev/test.sqlite";
-table_name = "jtest";
 
 connect(db_name);
 
-db_data = Jspidy.process(Jspidy.get(), header=["data_id"; "name"; "max_offer_unit_price"; "min_sale_unit_price"], sby="data_id", rev=false);
-
-createtable(db_data, name=table_name)
-
-
-#Table
-# data_id name max_offer_unit_price min_sale_unit_price netprice margin margin(%)
+raw = Jspidy.get();
+# createtable(raw[:,1:7], name="const_data", infer=true);
+# query("create table data_link (t1key INTEGER PRIMARY KEY, input_date)")
 
 
+if size(raw,1) > query("select count(*) from const_data")[1,1]
+	droptable("const_data");
+	createtable(raw[:,1:7], name="const_data", infer=true);
+end
 
-# 
-#  data_id name rarity restriction_level img type_id sub_type_id price_last_changed max_offer_unit_price min_sale_unit_price offer_availability sale_availability sale_price_change_last_hour offer_price_change_last_hour
+dt = datetime("yyyy-MM-dd HH", string(now()));
+var_data = raw[:, [1; 8:14]];
+createtable(var_data, name="'$(string(dt))'", infer=true);
+
+query("select * from '$(string(dt))'")
