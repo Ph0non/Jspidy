@@ -17,7 +17,7 @@ function get()
 end 
 
 # process everything
-function process(df::DataFrame; 
+function process{T<:DataFrame}(df::T; 
 	header=["name"]::Array{ASCIIString,1},
 	sby="margin"::ASCIIString,
 	minsale=10000::Int,
@@ -38,7 +38,7 @@ function process(df::DataFrame;
 end
 
 #write csv to disk
-function write(df::DataFrame)
+function write{T<:DataFrame}(df::T)
 	writetable(*(pwd() , (@windows ? "\\" : "/") , "gw2spidy ", strftime("%d.%m.%Y %HUhr", TmStruct(time())), ".csv"), df);
 end
 
