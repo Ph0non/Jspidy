@@ -10,7 +10,7 @@ end
 # import rawdata
 function get()
 	if !(isfile(pwd() * "/raw_data.csv") && int(strftime("%H", time()))-int(strftime("%H", mtime(pwd() * "/raw_data.csv"))) < 1)
-		run(`wget -q -O $(pwd())/raw_data.csv http://www.gw2spidy.com/api/v0.9/csv/all-items/all`);
+		download("http://www.gw2spidy.com/api/v0.9/csv/all-items/all", pwd()*"/raw_data.csv");
 	end
 	df = readtable(pwd() * "/raw_data.csv");
 	return df;
@@ -18,12 +18,12 @@ end
 
 # process everything
 function process{T<:DataFrame}(df::T; 
-	header=["name"]::Array{ASCIIString,1},
-	sby="margin"::ASCIIString,
-	minsale=10000::Int,
-	minoffer=10000::Int,
-	minmargin=10::Int,
-	rev=true::Bool)
+	header::Array{ASCIIString,1}=["name"],
+	sby::ASCIIString="margin",
+	minsale::Int32=10000,
+	minoffer::Int32=10000,
+	minmargin::Int32=10,
+	rev::Bool=true)
 
 #	@assert prod({in(header[i], colnames(df)) for i=1:length(header)});
 	@assert in(sby, [colnames(df); "netprice"; "margin"; "margin_percent"]);
