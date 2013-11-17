@@ -30,16 +30,16 @@ function process{T<:DataFrame}(df::T;
 
 	sub_df = df[convert(BitArray, {df[i, "sale_availability"] .> minsale && df[i, "offer_availability"] .> minoffer for i=1:size(df,1)}), colnames(df)];
 
-	c1 = DataFrame("netprice" = round(sub_df[:,"min_sale_unit_price"]*0.85, 2));
-	c2 = DataFrame("margin" = round((c1[1] - sub_df[:, "max_offer_unit_price"]),2));
-	c3 = DataFrame("margin_percent" = round(c2[1] ./ c1[1]*100 ,2));
+	c1 = DataFrame(netprice = round(sub_df[:,"min_sale_unit_price"]*0.85, 2));
+	c2 = DataFrame(margin = round((c1[1] - sub_df[:, "max_offer_unit_price"]),2));
+	c3 = DataFrame(margin_percent = round(c2[1] ./ c1[1]*100 ,2));
 
 	return sortby!([sub_df c1 c2 c3][c2[1] .>= minmargin, :], sby, rev ? Base.Order.Reverse : Base.Order.Forward)[[header; "netprice"; "margin"; "margin_percent"]];
 end
 
 #write csv to disk
 function write{T<:DataFrame}(df::T)
-	writetable(*(pwd() , (@windows ? "\\" : "/") , "gw2spidy ", strftime("%d.%m.%Y %HUhr", TmStruct(time())), ".csv"), df);
+	writetable(*(pwd() , "/gw2spidy ", strftime("%d.%m.%Y %HUhr", TmStruct(time())), ".csv"), df);
 end
 
 end
