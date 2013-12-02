@@ -17,7 +17,7 @@ if size(raw,1) > query("select count(*) from const_data")[1,1]
 end
 
 dt = string(today(), " ", hour(now()));
-#dt = datetime("yyyy-MM-dd HH", string(now()));
+#dt = datetime("yyyy-MM-dd HH", string(now()))
 var_data = raw[:, [1; 8:14]];
 createtable(var_data, name="'$(string(dt))'", infer=true);
 
