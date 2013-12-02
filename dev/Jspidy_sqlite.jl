@@ -6,7 +6,7 @@ using Datetime
 db_name = "history.sqlite";
 SQLite.connect(pwd() * "/dev/" * db_name);
 
-# save all constant data for savin disk space 
+# save all constant data for saving disk space 
 raw = Jspidy.get();
 # query("create table data_link (t1key INTEGER PRIMARY KEY, input_date)")
 
