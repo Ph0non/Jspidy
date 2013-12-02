@@ -6,7 +6,7 @@ using Datetime
 db_name = "history.sqlite";
 SQLite.connect(pwd() * "/dev/" * db_name);
 
-# save all constant data for saving disk space 
+# save all constant data for savin disk space 
 raw = Jspidy.get();
 # query("create table data_link (t1key INTEGER PRIMARY KEY, input_date)")
 
@@ -17,8 +17,8 @@ if size(raw,1) > query("select count(*) from const_data")[1,1]
 end
 
 dt = string(today(), " ", hour(now()));
-#dt = datetime("yyyy-MM-dd HH", string(now()))
+#dt = datetime("yyyy-MM-dd HH", string(now()));
 var_data = raw[:, [1; 8:14]];
 createtable(var_data, name="'$(string(dt))'", infer=true);
 
-query("select * from '$(string(dt))'")
+query("select * from '$(string(dt))'") 
