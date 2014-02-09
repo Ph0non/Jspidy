@@ -11,6 +11,7 @@ Getting Julia from [Julialang.org](http://julialang.org/downloads/) or [github](
 ```
 Pkg.init()
 Pkg.add("DataFrames")
+Pkg.checkout("DataFrames") (only neccessary for 32bit machines)
 ```
 ### Using Jspidy
 * Load module: `using Jspidy`
@@ -21,30 +22,35 @@ Pkg.add("DataFrames")
 `Jspidy.get()` creates a `raw_data.csv` and update it, if the modification hour of the file is at last more than an hour ago. `Jspidy.process` returns a DataFrame with a specified header and additional useful columns like the netprice, margin and percentual margin of items. Further it accepts additional arguments for a more detailed output, see below.
 
 ### Optional arguments for `Jspidy.process`
-* `header = ["string1"; "string2"; "string3"; and so on]` (Default `["name"]`) — Columns and order of output spreadsheet. For all possible header options see [possible header options](#possible-header--sby-options).
-* `sby = "string"` (Default `"margin"`) — Sort spreadsheet respective to this column. For all possible options see [possible sby options](#possible-header--sby-options).
+* `header = [:symbol1; :symbol2; :symbol3; and so on]` (Default `[:name]`) — Columns and order of output spreadsheet. For all possible header options see [possible header options](#possible-header--sby-options).
+* `sby = :symbol` (Default `"margin"`) — Sort spreadsheet respective to this column. For all possible options see [possible sby options](#possible-header--sby-options).
 * `minsale = int` (Default `10000`) — Minimum volume of sale offers.
 * `minoffer = int` (Default `10000`) — Minimum volume of buy offers.
 * `minmargin = int` (Default `10`) — Minimum margin.
-* `rev = bool` (Default `true`) — Reverse ordering of column specified by `sby`.
+* `rev_opt = bool` (Default `true`) — Reverse ordering of column specified by `sby`.
 
 ### Example
 ```
-julia> Jspidy.process(Jspidy.get(), header=["data_id"; "name"], sby="name", rev=false, minmargin=30)
-12x5 DataFrame:
-         data_id                                     name netprice margin margin(%)
-[1,]       12451 "Bowl of Meat and Winter Vegetable Stew"   164.05  36.05     21.98
-[2,]       12447               "Bowl of Spicy Meat Chili"     74.8   42.8     57.22
-[3,]       43357                          "Dragon Coffer"   254.15  78.15     30.75
-[4,]        9461                 "Master Maintenance Oil"   589.05  57.05      9.69
-[5,]       12273                         "Minotaur Steak"    119.0   34.0     28.57
-[6,]       38461                           "Pop Gun Skin"   376.55  75.55     20.06
-[7,]       38469                     "Princess Wand Skin"    413.1  119.1     28.83
-[8,]       38467                         "Slingshot Skin"    73.95  30.95     41.85
-[9,]       38458                         "Toy Staff Skin"     69.7   38.7     55.52
-[10,]      38460                         "Toy Sword Skin"     52.7   30.7     58.25
-[11,]      36038                     "Trick-or-Treat Bag"    154.7   34.7     22.43
-[12,]      38463                     "Wooden Dagger Skin"     78.2   32.2     41.18
+julia> Jspidy.process(Jspidy.get(), header=[:data_id; :name], sby=:name, rev_opt=false, minmargin=30)
+|-------|---------|-------------------------------------|----------|--------|----------------|
+| Row # | data_id | name                                | netprice | margin | margin_percent |
+| 1     | 42006   | "Azurite Crystal"                   | 210.8    | 37.8   | 17.93          |
+| 2     | 43357   | "Dragon Coffer"                     | 629.85   | 40.85  | 6.49           |
+| 3     | 43360   | "Dragon's Breath Bun"               | 214.2    | 44.2   | 20.63          |
+| 4     | 38302   | "Drop of Magic Glue"                | 143.65   | 42.65  | 29.69          |
+| 5     | 38291   | "Giant Wintersday Gift"             | 351.05   | 34.05  | 9.7            |
+| 6     | 12387   | "Ginger Pear Tart"                  | 64.6     | 30.6   | 47.37          |
+| 7     | 38290   | "Large Wintersday Gift"             | 334.9    | 46.9   | 14.0           |
+⋮
+| 10    | 38461   | "Pop Gun Skin"                      | 103.7    | 52.7   | 50.82          |
+| 11    | 8893    | "Powerful Potion of Undead Slaying" | 173.4    | 33.4   | 19.26          |
+| 12    | 38469   | "Princess Wand Skin"                | 608.6    | 56.6   | 9.3            |
+| 13    | 38136   | "Small Wintersday Gift"             | 334.9    | 44.9   | 13.41          |
+| 14    | 19761   | "Soft Wood Dowel"                   | 140.25   | 37.25  | 26.56          |
+| 15    | 24757   | "Superior Rune of the Undead"       | 153.85   | 58.85  | 38.25          |
+| 16    | 38130   | "Tiny Snowflake"                    | 454.75   | 52.75  | 11.6           |
+| 17    | 38463   | "Wooden Dagger Skin"                | 79.05    | 42.05  | 53.19          |
+
 ```
 
 ### Possible header / sby options
