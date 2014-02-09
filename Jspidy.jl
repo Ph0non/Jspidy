@@ -14,7 +14,7 @@ end
 # process everything
 function process{T<:DataFrame}(df::T; 
 	header::Array{Symbol,1}=[:name],
-	sby::Symbol="margin",
+	sby::Symbol=:margin,
 	minsale::Int32=10000,
 	minoffer::Int32=10000,
 	minmargin::Int32=10,
