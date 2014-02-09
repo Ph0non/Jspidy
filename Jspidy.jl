@@ -21,7 +21,7 @@ function process{T<:DataFrame}(df::T;
 	rev_opt::Bool=true)
 
 #	@assert prod({in(header[i], names(df)) for i=1:length(header)});
-	@assert in(sby, [names(df); "netprice"; "margin"; "margin_percent"]);
+	@assert in(sby, [names(df); :netprice; :margin; :margin_percent]);
 
 	sub_df = df[convert(BitArray, {df[i, :sale_availability] .> minsale && df[i, :offer_availability] .> minoffer for i=1:size(df,1)}), names(df)];
 
