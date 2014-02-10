@@ -4,7 +4,7 @@ using DataFrames
 
 # import rawdata
 function get()
-	if !(isfile(pwd() * "/raw_data.csv") && time() - mtime(pwd() * "/raw_data.csv") > 3600)
+	if !(isfile(pwd() * "/raw_data.csv") && int(strftime("%H", time()))-int(strftime("%H", mtime(pwd() * "/raw_data.csv"))) < 1 && time() - mtime(pwd() * "/raw_data.csv") > 3600)
 		download("http://www.gw2spidy.com/api/v0.9/csv/all-items/all", pwd()*"/raw_data.csv");
 	end
 	df = readtable(pwd() * "/raw_data.csv");
